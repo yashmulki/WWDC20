@@ -25,47 +25,47 @@ class SwiftyBird: SKSpriteNode, Editable {
     func editSequence(new: String) {
         sequence = new
         print(new)
-            if (new.contains("ATG")) {
-                  self.texture = SKTexture(imageNamed: "SwiftPurple")
-              } else  {
-                tadaPlayer?.play()
-                // Bounce animation
-                let bounceFactor = 0.4
-                let dropHeight = 0.2
-                let dropAction = SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor), duration: 0.3)
-                let sequence = SKAction.sequence( [SKAction.move(by: CGVector(dx: 0, dy: dropHeight*bounceFactor), duration: 0.3),
-                                                   SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor), duration: 0.3),
-                                                   SKAction.move(by: CGVector(dx: 0, dy: dropHeight*bounceFactor/2), duration: 0.3),
-                                                  SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor/2), duration: 0.3)])
-                
-                sequence.timingMode = .easeInEaseOut
-                
-                let particles = SKEmitterNode(fileNamed: "Spark")!
-                particles.position = self.position
-                
-                particles.particleSize = CGSize(width: 0.2, height: 0.2)
-                particles.emissionAngle = CGFloat.pi / 2
-                parent?.addChild(particles)
-                let wait = SKAction.wait(forDuration: 5)
-                let removeParticles = SKAction.removeFromParent()
-                let seq = SKAction.sequence([wait, removeParticles])
-                particles.run(seq)
-                
-                let bounceEffect = SKAction.group([dropAction, sequence])
-                self.texture = SKTexture(imageNamed: "SwiftBird")
-                self.run(bounceEffect)
-              }
+        if (new.contains("ATG")) {
+            self.texture = SKTexture(imageNamed: "SwiftPurple")
+        } else  {
+            tadaPlayer?.play()
+            // Bounce animation
+            let bounceFactor = 0.4
+            let dropHeight = 0.2
+            let dropAction = SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor), duration: 0.3)
+            let sequence = SKAction.sequence( [SKAction.move(by: CGVector(dx: 0, dy: dropHeight*bounceFactor), duration: 0.3),
+                                               SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor), duration: 0.3),
+                                               SKAction.move(by: CGVector(dx: 0, dy: dropHeight*bounceFactor/2), duration: 0.3),
+                                               SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor/2), duration: 0.3)])
+            
+            sequence.timingMode = .easeInEaseOut
+            
+            let particles = SKEmitterNode(fileNamed: "Spark")!
+            particles.position = self.position
+            
+            particles.particleSize = CGSize(width: 0.2, height: 0.2)
+            particles.emissionAngle = CGFloat.pi / 2
+            parent?.addChild(particles)
+            let wait = SKAction.wait(forDuration: 5)
+            let removeParticles = SKAction.removeFromParent()
+            let seq = SKAction.sequence([wait, removeParticles])
+            particles.run(seq)
+            
+            let bounceEffect = SKAction.group([dropAction, sequence])
+            self.texture = SKTexture(imageNamed: "SwiftBird")
+            self.run(bounceEffect)
+        }
     }
     
     func setSequence(new: String) {
         
         let tadaPath = URL(fileURLWithPath: Bundle.main.path(forResource: "tada", ofType: "mp3")!)
-             do {
-                 tadaPlayer = try AVAudioPlayer(contentsOf: tadaPath)
-             } catch  {
-                 print("error")
-             }
-             
+        do {
+            tadaPlayer = try AVAudioPlayer(contentsOf: tadaPath)
+        } catch  {
+            print("error")
+        }
+        
         sequence = new
         guard let strand = strand else {
             return
@@ -93,20 +93,20 @@ class Cas9Node: SKSpriteNode {
     
     func attach(to strand: DNAStrand) {
         self.strand = strand
-//        let clickSoundPath = URL(fileURLWithPath: Bundle.main.path(forResource: "click", ofType: "wav")!)
-//              do {
-//                  audioPlayer = try AVAudioPlayer(contentsOf: clickSoundPath)
-//              } catch  {
-//                  print("error")
-//              }
-//
+        //        let clickSoundPath = URL(fileURLWithPath: Bundle.main.path(forResource: "click", ofType: "wav")!)
+        //              do {
+        //                  audioPlayer = try AVAudioPlayer(contentsOf: clickSoundPath)
+        //              } catch  {
+        //                  print("error")
+        //              }
+        //
         // Play click sound
         
         let clickSoundPath = URL(fileURLWithPath: Bundle.main.path(forResource: "click", ofType: "wav")!)
-             do {
-                 audioPlayer = try AVAudioPlayer(contentsOf: clickSoundPath)
-             } catch  {
-                 print("error")
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: clickSoundPath)
+        } catch  {
+            print("error")
         }
         
         audioPlayer?.play()
@@ -118,37 +118,45 @@ class Cas9Node: SKSpriteNode {
     }
     
     func loadTemplate(template: [Character]) {
+        if self.template != nil {
+            self.template = nil
+        }
+        
         // Animate template coming in
         self.template = template
-             
-             for i in 0..<template.count {
-                 let base = template[i]
-                 var baseTexture = "C_Block.png"
-                 switch base {
-                        case Character("G"):
-                            baseTexture =  "G_Block.png"
-                        case Character("A"):
-                            baseTexture =  "A_Block.png"
-                        case Character("T"):
-                            baseTexture =  "T_Block.png"
-                        default:
-                            break
-                        }
-                 
-                let baseNode = SKSpriteNode(imageNamed: baseTexture)
-                baseNode.size = CGSize(width: 0.06, height: 0.06)
-                baseNode.position = CGPoint(x: -0.5, y: -0.1355)
-                
-                 
-                let moveAction = SKAction.move(to: CGPoint(x: Double(i) * 0.074 -  0.075, y: -0.1355), duration: 1.0)
-                moveAction.timingMode = .easeInEaseOut
-                addChild(baseNode)
-                baseNode.run(moveAction)
-             }
-                    
+        
+        for i in 0..<template.count {
+            let base = template[i]
+            var baseTexture = "C_Block.png"
+            switch base {
+            case Character("G"):
+                baseTexture =  "G_Block.png"
+            case Character("A"):
+                baseTexture =  "A_Block.png"
+            case Character("T"):
+                baseTexture =  "T_Block.png"
+            default:
+                break
+            }
+            
+            let baseNode = SKSpriteNode(imageNamed: baseTexture)
+            baseNode.size = CGSize(width: 0.06, height: 0.06)
+            baseNode.position = CGPoint(x: -0.5, y: -0.1355)
+            
+            
+            let moveAction = SKAction.move(to: CGPoint(x: Double(i) * 0.074 -  0.075, y: -0.1355), duration: 1.0)
+            moveAction.timingMode = .easeInEaseOut
+            addChild(baseNode)
+            baseNode.run(moveAction)
+        }
+        
     }
     
     func loadTarget(target: [Character]) {
+        if self.target != nil {
+                   self.template = nil
+        }
+        
         // Animate Target Coming in
         self.target = target
         
@@ -156,15 +164,15 @@ class Cas9Node: SKSpriteNode {
             let base = target[i]
             var baseTexture = "C_Block.png"
             switch base {
-                   case Character("G"):
-                       baseTexture =  "G_Block.png"
-                   case Character("A"):
-                       baseTexture =  "A_Block.png"
-                   case Character("T"):
-                       baseTexture =  "T_Block.png"
-                   default:
-                       break
-                   }
+            case Character("G"):
+                baseTexture =  "G_Block.png"
+            case Character("A"):
+                baseTexture =  "A_Block.png"
+            case Character("T"):
+                baseTexture =  "T_Block.png"
+            default:
+                break
+            }
             
             let baseNode = SKSpriteNode(imageNamed: baseTexture)
             baseNode.size = CGSize(width: 0.06, height: 0.06)
@@ -175,7 +183,7 @@ class Cas9Node: SKSpriteNode {
             addChild(baseNode)
             baseNode.run(moveAction)
         }
-               
+        
         
     }
     
@@ -186,7 +194,7 @@ class Cas9Node: SKSpriteNode {
         
         // Get the correct position
         let position = strand.locationOfCodon(codon: target)
-            
+        
         // Move to the correct position ewith animation
         var offset = Double(position) * DNAStrand.basePairWidth
         if offset < 0 {
@@ -202,7 +210,7 @@ class Cas9Node: SKSpriteNode {
         }
         
         // Delete the codon and replace it with error prone repair
-//        strand.repairCodon(at: position, template: nil)
+        //        strand.repairCodon(at: position, template: nil)
     }
     
     func removeTargetCodonAndReplace() {
@@ -213,27 +221,27 @@ class Cas9Node: SKSpriteNode {
         // Get the correct position
         let position = strand.locationOfCodon(codon: target)
         
-         var offset = Double(position) * DNAStrand.basePairWidth
-               if offset < 0 {
-                   offset = 0
-                   // Could prompt not found here
-                    return
-               }
-               let moveAction = SKAction.move(by: CGVector(dx: CGFloat(-1.0 * offset), dy: 0), duration: 2)
-               moveAction.timingMode = .easeInEaseOut
-               strand.run(moveAction) {
-                   strand.deleteCodon(at: position, completion: { [weak self] in
-                       self?.strand?.repairCodon(at: position, template: template)
-                   })
-               }
-               
+        var offset = Double(position) * DNAStrand.basePairWidth
+        if offset < 0 {
+            offset = 0
+            // Could prompt not found here
+            return
+        }
+        let moveAction = SKAction.move(by: CGVector(dx: CGFloat(-1.0 * offset), dy: 0), duration: 2)
+        moveAction.timingMode = .easeInEaseOut
+        strand.run(moveAction) {
+            strand.deleteCodon(at: position, completion: { [weak self] in
+                self?.strand?.repairCodon(at: position, template: template)
+            })
+        }
+        
     }
     
     
 }
 
 class GameScene: SKScene {
-        
+    
     // Graphics
     private var width: CGFloat!
     private var height: CGFloat!
@@ -248,19 +256,19 @@ class GameScene: SKScene {
     public var organism: Editable?
     
     override func didMove(to view: SKView) {
-
+        
         // Basic setup
         width = view.frame.width
         height = view.frame.height
         self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-
-         // Set up background and add to scene
+        
+        // Set up background and add to scene
         let backgroundTexture = SKTexture(imageNamed: "Background-1.png")
         let backgroundNode = SKSpriteNode(texture: backgroundTexture, size: CGSize(width: 1, height: 1.33))
         backgroundNode.name = "Background"
         backgroundNode.position = CGPoint(x: 0.5, y: 0.5)
         self.addChild(backgroundNode)
-
+        
         // Create Cas9 Node
         cas9Node = Cas9Node(imageNamed: "AppleEdit.png")
         self.addChild(cas9Node!)
@@ -279,18 +287,18 @@ class GameScene: SKScene {
         organism?.setSequence(new: "ATTAGCATAACGATGAA")
         organism?.size = CGSize(width: 0.3, height: 0.3)
         dnaNode?.setOrganism(new: organism!)
-
         
-//        cas9Node?.attach(to: dnaNode!)
-//        cas9Node?.loadTarget(target: [Character("A"), Character("T"), Character("G")])
-//        cas9Node?.loadTemplate(template: [Character("T"), Character("G"), Character("G")])
+        
+        //        cas9Node?.attach(to: dnaNode!)
+        //        cas9Node?.loadTarget(target: [Character("A"), Character("T"), Character("G")])
+        //        cas9Node?.loadTemplate(template: [Character("T"), Character("G"), Character("G")])
         
     }
     
     func configureDNAStrand(with sequence: String) {
         
     }
-
+    
 }
 
 class DNAStrand: SKNode {
@@ -308,7 +316,7 @@ class DNAStrand: SKNode {
     }
     
     func deleteCodon(at: Int, completion: @escaping () -> ()) {
-       
+        
         if strand == nil {
             return
         }
@@ -345,7 +353,7 @@ class DNAStrand: SKNode {
         
         self.strand = Array(strand)
         for i in 0..<self.strand!.count {
-             // Create a BasePair and add it in the right position
+            // Create a BasePair and add it in the right position
             let base = self.strand![i]
             let basePair = BasePair()
             basePair.configure(base: base)
@@ -353,11 +361,11 @@ class DNAStrand: SKNode {
             basePair.position = CGPoint(x: DNAStrand.basePairWidth * Double(i), y: 0)
             addChild(basePair)
         }
-     }
+    }
     
     // Returns the location (index) of a specified codon - each index is X units in width
     func locationOfCodon(codon: [Character]) -> Int {
-         cutSoundPlayer?.prepareToPlay()
+        cutSoundPlayer?.prepareToPlay()
         if codon.count != 3 {
             return -1
         }
@@ -379,7 +387,7 @@ class DNAStrand: SKNode {
     }
     
     var bases = [Character("C"), Character("G"), Character("A"), Character("T")]
-        
+    
     func repairCodon(at: Int, template: [Character]?) {
         if strand == nil || at >= strand!.count - 2{
             return
@@ -393,7 +401,7 @@ class DNAStrand: SKNode {
         strand![at] = myTemplate![0]
         strand![at+1] = myTemplate![1]
         strand![at+2] = myTemplate![2]
-    
+        
         // Create Base Pairs and Animate them in
         let firstBasePair = BasePair()
         firstBasePair.configure(base: myTemplate![0])
@@ -429,7 +437,7 @@ class DNAStrand: SKNode {
                 thirdBasePair.run(thirdMoveAction) {
                     DispatchQueue.main.async {
                         self.organism?.editSequence(new: String(self.strand!))
-
+                        
                     }
                 }
                 
@@ -496,10 +504,7 @@ class BasePair: SKNode {
     }
     
 }
-class EditorViewController: UIViewController {
-    
-    // Sound and Haptics
-    private var audioPlayer = AVAudioPlayer()
+class EditorViewController: UIViewController, PlaygroundLiveViewMessageHandler {
     
     private var sceneView: SKView?
     private var scene: GameScene?
@@ -513,30 +518,19 @@ class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-                
-                //  Configure spritekit view
+        
+        //  Configure spritekit view
         sceneView = SKView(frame: CGRect(x:0 , y:0, width: view.frame.width/2, height: view.frame.height))
-                scene = GameScene()
-                scene!.scaleMode = .aspectFill
-                sceneView!.presentScene(scene!)
-                view.addSubview(sceneView!)
-                
-        //        // Set up audio player for the background music theme
-        //        let backgroundMusicPath = URL(fileURLWithPath: Bundle.main.path(forResource: "EditorBackground", ofType: "mp3")!)
-        //        do {
-        //            audioPlayer = try AVAudioPlayer(contentsOf: backgroundMusicPath)
-        //        } catch  {
-        //            print("error")
-        //        }
-        //        audioPlayer.volume = 0.8
-        //        audioPlayer.numberOfLoops = -1
-        //        audioPlayer.play()
-        //
-                
-                let runButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: 20, width: 35, height: 35))
-                runButton.configure(code: "play.circle.fill")
-                runButton.addTarget(self, action: #selector(self.runCRISPR), for: .touchDown)
-                view.addSubview(runButton)
+        scene = GameScene()
+        scene!.scaleMode = .aspectFill
+        sceneView!.presentScene(scene!)
+        view.addSubview(sceneView!)
+        
+        
+        let runButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: 20, width: 35, height: 35))
+        runButton.configure(code: "play.circle.fill")
+        runButton.addTarget(self, action: #selector(self.runCRISPR), for: .touchDown)
+        view.addSubview(runButton)
     }
     
     @objc func runCRISPR() {
@@ -553,9 +547,6 @@ class EditorViewController: UIViewController {
         }
     }
     
-}
-
-extension EditorViewController: PlaygroundLiveViewMessageHandler {
     
     public func receive(_ message: PlaygroundValue) {
         if case let .dictionary(text) = message {
@@ -568,42 +559,13 @@ extension EditorViewController: PlaygroundLiveViewMessageHandler {
                     }
                 } else if type == "Target" {
                     if case let .string(sequence) = text["Target"]! {
-                        scene?.cas9Node?.loadTemplate(template: Array(sequence))
+                        scene?.cas9Node?.loadTarget(target: Array(sequence))
                     }
                 }
             }
         }
         
-        // Process and handle messages
-//        if case let .dictionary(text) = message {
-//            if case let .string(type) = text["Type"]! {
-//                var pin = 0
-//                if case let .integer(currentPin) = text["Pin"]! {
-//                    pin = currentPin
-//                }
-//                if type == "Configure" {
-//                    if case let .string(pintype) = text["PinType"]! {
-//                        let type = PinType(rawValue: pintype)!
-//                        controller.configurePin(for: pin, type: type)
-//                    }
-//                } else if type == "WriteBool" {
-//                    if case let .boolean(data) = text["Data"]! {
-//                        controller.writeBool(to: pin, value: data)
-//                    }
-//                } else if type == "ReadBool" {
-//                   // Send pin value
-//                    self.send(.dictionary(["Pin" : .integer(pin), "Value" : .boolean(controller.readBool(from: pin))]))
-//                } else if type == "WriteDouble" {
-//                    if case let .floatingPoint(data) = text["Data"]! {
-//                        controller.writeDouble(to: pin, value: data)
-//                    }
-//                } else {
-//                    self.send(.dictionary(["Pin" : .integer(pin), "Value" : .floatingPoint(controller.readDouble(from: pin))]))
-//                }
-//            }
-//        }
-        
         
     }
+    
 }
-

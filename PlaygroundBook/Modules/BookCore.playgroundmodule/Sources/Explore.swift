@@ -200,23 +200,30 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 
         lightNode.light = SCNLight()
         lightNode.light!.type = .directional
-        lightNode.position = SCNVector3(x: 0, y: 60, z: 10)
+        lightNode.position = SCNVector3(x: 0, y: -60, z: 20)
         cameraNode.addChildNode(lightNode)
 
         let secondLightNode = SCNNode()
 
         secondLightNode.light = SCNLight()
         secondLightNode.light!.type = .directional
-        secondLightNode.position = SCNVector3(x: 0, y: 60, z: 0)
-        scene.rootNode.addChildNode(lightNode)
+        secondLightNode.position = SCNVector3(x: 0, y: 60, z: -20)
+        scene.rootNode.addChildNode(secondLightNode)
 
-
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.intensity = 5000
-        ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = UIColor.darkGray
-        scene.rootNode.addChildNode(ambientLightNode)
+//
+//        let thirdLightNode = SCNNode()
+//
+//               thirdLightNode.light = SCNLight()
+//               thirdLightNode.light!.type = .directional
+//               thirdLightNode.position = SCNVector3(x: 0, y: 60, z: 0)
+//               scene.rootNode.addChildNode(thirdLightNode)
+////
+//        let ambientLightNode = SCNNode()
+//        ambientLightNode.light = SCNLight()
+//        ambientLightNode.light!.intensity = 2000
+//        ambientLightNode.light!.type = .ambient
+//        ambientLightNode.light!.color = UIColor.darkGray
+//        scene.rootNode.addChildNode(ambientLightNode)
 
 
         scnView.scene = scene

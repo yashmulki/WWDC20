@@ -4,14 +4,12 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack {
-                Image("Yash1").resizable()
+                Image("Yash1").resizable().aspectRatio(contentMode: .fit)
                 VStack {
-                    Image("Yash2").resizable()
-                    Image("Oakville").resizable()
+                    Image("Craig").resizable().aspectRatio(contentMode: .fit)
                 }
-                Image("Craig").resizable()
             }
-            Text("👋 Hello! Thanks for viewing my playground. I'm Yash Mulki, a 17 year old student developer from the Town of Oakville in Canada. I learned how to code iOS apps back when Swift was released in 2014, and it's been a tremendously exciting journey since then. I've developed a variety of iOS apps, centered around the theme of improving political engagement and voter turnout. My latest app, Votisor, provides information on candidates, representatives and elections in Canada. I've also interned as an iOS developer at Tulip Retail, an Apple partnered company during the summer after grade 10 and 11 ").padding(EdgeInsets(top:120, leading: 50, bottom: 120, trailing: 50)).font(Font.system(size: 22, weight: .semibold, design: .default))
+            Text("👋 Hello! I'm Yash, a 17 year old student from Oakville, Canada. I learned how to code iOS apps back when Swift was released, and it's been a tremendously exciting journey. I've developed iOS apps focused on improving political engagement and voter turnout and I've interned as an iOS developer at at an Apple partnered company during the summer after grades 10 and 11 ").padding(EdgeInsets(top:20, leading: 50, bottom: 0, trailing: 50)).font(Font.system(size: 22, weight: .semibold, design: .default))
         }
     }
 }
