@@ -47,8 +47,7 @@ class MyViewController : UIViewController, PlaygroundLiveViewMessageHandler, Pla
         let bacteriophageCell = ItemCell(frameRect: bacteriophageFrame, title: "Bacteriophage", image: bacteriophageImage, model: "phage", detail: "A Virus", callback: { [self] in
             self.altController = ItemDetailViewController()
             self.altController.loadViewIfNeeded()
-            //            self.navigationController!.pushViewController(self.altController, animated: true)
-//            self?.present(controller, animated: true, completion: nil)
+           
         })
         view.addSubview(bacteriophageCell)
         
@@ -154,7 +153,7 @@ class ItemCell: UIView {
     }
 }
 
-
+import ARKit
 
 // Item popup with option to dismiss,a 3d view, a short description and
 class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource, PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer  {
