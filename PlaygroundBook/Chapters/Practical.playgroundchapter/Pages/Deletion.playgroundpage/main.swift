@@ -54,7 +54,6 @@ configureTarget(target: /*#-editable-code Sequence*/""/*#-end-editable-code*/)
 var correctResults = ["Sequence*/\"AAG\""]
 
 
-
 // Validation stuff
 public func findUserCodeInputs(from input: String) -> [String] {
     var inputs: [String] = []

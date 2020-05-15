@@ -176,7 +176,7 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
         view.backgroundColor = .black
 
         // Load the 3D model into the scene view
-        scnView = SCNView(frame: CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height*0.7))
+        scnView = SCNView(frame: CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height))
         guard let urlPath = Bundle.main.url(forResource: "cas9", withExtension: "usdz") else {
             print("Yikes")
             return
@@ -201,6 +201,7 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
         lightNode.light = SCNLight()
         lightNode.light!.type = .directional
         lightNode.position = SCNVector3(x: 0, y: -60, z: 20)
+        lightNode.look(at: SCNVector3(0, 0, 0))
         cameraNode.addChildNode(lightNode)
 
         let secondLightNode = SCNNode()
@@ -208,15 +209,25 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
         secondLightNode.light = SCNLight()
         secondLightNode.light!.type = .directional
         secondLightNode.position = SCNVector3(x: 0, y: 60, z: -20)
+        secondLightNode.look(at: SCNVector3(0, 0, 0))
         scene.rootNode.addChildNode(secondLightNode)
 
-//
-//        let thirdLightNode = SCNNode()
-//
-//               thirdLightNode.light = SCNLight()
-//               thirdLightNode.light!.type = .directional
-//               thirdLightNode.position = SCNVector3(x: 0, y: 60, z: 0)
-//               scene.rootNode.addChildNode(thirdLightNode)
+
+        let thirdLightNode = SCNNode()
+
+               thirdLightNode.light = SCNLight()
+               thirdLightNode.light!.type = .directional
+               thirdLightNode.position = SCNVector3(x: 0, y: -60, z: 0)
+            thirdLightNode.look(at: SCNVector3(0, 0, 0))
+               scene.rootNode.addChildNode(thirdLightNode)
+        
+        let fourthLightNode = SCNNode()
+
+                     fourthLightNode.light = SCNLight()
+                     fourthLightNode.light!.type = .directional
+                     fourthLightNode.position = SCNVector3(x: 0, y: -60, z: 0)
+                  fourthLightNode.look(at: SCNVector3(0, 0, 0))
+                     scene.rootNode.addChildNode(fourthLightNode)
 ////
 //        let ambientLightNode = SCNNode()
 //        ambientLightNode.light = SCNLight()
@@ -233,35 +244,35 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 
         view.addSubview(scnView)
 
-        // Blur and desription label
-        
-        let descriptionView = UIView(frame: CGRect(x: 25, y: view.frame.height - 220, width: view.frame.width/2 , height: 150))
-        descriptionView.backgroundColor = .clear
-        descriptionView.layer.cornerRadius = 15
-        descriptionView.clipsToBounds = true
-        view.addSubview(descriptionView)
-        
-        // Blur Background
-               let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.extraLight)
-               let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                blurEffectView.frame = descriptionView.frame
-               blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-               blurEffectView.layer.cornerRadius = 15
-               blurEffectView.layer.masksToBounds = true
-        descriptionView.addSubview(blurEffectView)
-
-        let descriptionLabel = UILabel(frame: descriptionView.frame)
-        descriptionLabel.text = message
-        descriptionLabel.numberOfLines = 10
-        descriptionLabel.textColor = .black
-        view.addSubview(descriptionLabel)
+//        // Blur and desription label
+//
+//        let descriptionView = UIView(frame: CGRect(x: 25, y: view.frame.height - 220, width: view.frame.width/2 , height: 150))
+//        descriptionView.backgroundColor = .clear
+//        descriptionView.layer.cornerRadius = 15
+//        descriptionView.clipsToBounds = true
+//        view.addSubview(descriptionView)
+//
+//        // Blur Background
+//               let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.extraLight)
+//               let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//                blurEffectView.frame = descriptionView.frame
+//               blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//               blurEffectView.layer.cornerRadius = 15
+//               blurEffectView.layer.masksToBounds = true
+//        descriptionView.addSubview(blurEffectView)
+//
+//        let descriptionLabel = UILabel(frame: descriptionView.frame)
+//        descriptionLabel.text = message
+//        descriptionLabel.numberOfLines = 10
+//        descriptionLabel.textColor = .black
+//        view.addSubview(descriptionLabel)
 //
 //        let closeButton = CustomButton(frame: CGRect(x: view.frame.width - 50, y: 20, width: 35, height: 35))
 //        closeButton.configure(code: "multiply.circle.fill")
 //        closeButton.addTarget(self, action: #selector(self.closeDetailView), for: .touchDown)
 //        view.addSubview(closeButton)
 
-        let arButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: view.frame.height*0.7, width: 35, height: 35))
+        let arButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: view.frame.height*0.9, width: 35, height: 35))
         arButton.configure(code: "cube.box.fill")
         arButton.addTarget(self, action: #selector(self.displayARView), for: .touchDown)
         view.addSubview(arButton)
