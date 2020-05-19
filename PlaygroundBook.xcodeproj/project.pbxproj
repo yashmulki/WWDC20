@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0258988924718A3500EA1BE7 /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0258988824718A3500EA1BE7 /* Spark.sks */; };
+		0258988A24718A3500EA1BE7 /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0258988824718A3500EA1BE7 /* Spark.sks */; };
+		0258988C2471912100EA1BE7 /* cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258988B2471912100EA1BE7 /* cover.png */; };
+		0258988D2471912100EA1BE7 /* cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258988B2471912100EA1BE7 /* cover.png */; };
 		5E086DCA2051DDAE004D8D25 /* LiveView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E086DCC2051DDAE004D8D25 /* LiveView.storyboard */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E3196F32061DEA40077BBD7 /* LiveViewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3196F22061DEA40077BBD7 /* LiveViewSupport.swift */; };
@@ -35,8 +39,6 @@
 		A13F6E20246AFF26008EE5CB /* tada.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A13F6E1E246AFF26008EE5CB /* tada.mp3 */; };
 		A13F6E22246AFF82008EE5CB /* slice.wav in Resources */ = {isa = PBXBuildFile; fileRef = A13F6E21246AFF82008EE5CB /* slice.wav */; };
 		A13F6E23246AFF82008EE5CB /* slice.wav in Resources */ = {isa = PBXBuildFile; fileRef = A13F6E21246AFF82008EE5CB /* slice.wav */; };
-		A13F6E24246B0088008EE5CB /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = A140A0C0246A0499009F8B23 /* Spark.sks */; };
-		A140A0C1246A0499009F8B23 /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = A140A0C0246A0499009F8B23 /* Spark.sks */; };
 		A140A0C3246A07CB009F8B23 /* cas9.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A140A0C2246A07CB009F8B23 /* cas9.usdz */; };
 		A140A0C4246A07CB009F8B23 /* cas9.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A140A0C2246A07CB009F8B23 /* cas9.usdz */; };
 		A184C08E246895310082E08F /* Explore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184C08D246895310082E08F /* Explore.swift */; };
@@ -149,12 +151,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0258988824718A3500EA1BE7 /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
+		0258988B2471912100EA1BE7 /* cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover.png; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* CRISPR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CRISPR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E086DCD2051DDB8004D8D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LiveView.storyboard; sourceTree = "<group>"; };
 		5E086DCF2051DF0F004D8D25 /* Manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Manifest.plist; sourceTree = "<group>"; };
 		5E0E37522065981C008FA4BE /* BuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BuildSettings.xcconfig; sourceTree = "<group>"; };
-		5E0E37542065A065008FA4BE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5E1004BE208E7F6E00BCFE70 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		5E2A7AE6204F630600F4E17A /* BaseBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BaseBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E3196F22061DEA40077BBD7 /* LiveViewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewSupport.swift; sourceTree = "<group>"; };
@@ -183,7 +186,6 @@
 		A13F6E1B246AFEA9008EE5CB /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = click.wav; path = Assets.xcassets/click.dataset/click.wav; sourceTree = "<group>"; };
 		A13F6E1E246AFF26008EE5CB /* tada.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tada.mp3; sourceTree = "<group>"; };
 		A13F6E21246AFF82008EE5CB /* slice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = slice.wav; path = Assets.xcassets/slice.dataset/slice.wav; sourceTree = "<group>"; };
-		A140A0C0246A0499009F8B23 /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
 		A140A0C2246A07CB009F8B23 /* cas9.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = cas9.usdz; path = Assets.xcassets/cas9.dataset/cas9.usdz; sourceTree = "<group>"; };
 		A184C08D246895310082E08F /* Explore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Explore.swift; sourceTree = "<group>"; };
 		A184C09324689CBF0082E08F /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
@@ -275,7 +277,6 @@
 		5E2A7ADC204F611300F4E17A = {
 			isa = PBXGroup;
 			children = (
-				5E0E37542065A065008FA4BE /* README.md */,
 				5E086DC12051C5A7004D8D25 /* PlaygroundBook */,
 				5EA2E3BE2056F35A00416A35 /* LiveViewTestApp */,
 				5E2A7AE3204F628B00F4E17A /* Config Files */,
@@ -407,13 +408,14 @@
 			children = (
 				5EF2F97E2054B6E400191409 /* ManifestPlist.strings */,
 				5E086DCC2051DDAE004D8D25 /* LiveView.storyboard */,
+				0258988B2471912100EA1BE7 /* cover.png */,
 				A140A0C2246A07CB009F8B23 /* cas9.usdz */,
 				A13F6E1E246AFF26008EE5CB /* tada.mp3 */,
 				A13F6E18246AFD76008EE5CB /* EditorBackground.mp3 */,
 				A13F6E21246AFF82008EE5CB /* slice.wav */,
 				A13F6E1B246AFEA9008EE5CB /* click.wav */,
 				5E551EC42371FC3F00784365 /* Assets.xcassets */,
-				A140A0C0246A0499009F8B23 /* Spark.sks */,
+				0258988824718A3500EA1BE7 /* Spark.sks */,
 			);
 			path = PrivateResources;
 			sourceTree = "<group>";
@@ -582,10 +584,11 @@
 				5EF2F97C2054B6E400191409 /* ManifestPlist.strings in Resources */,
 				A13F6E1C246AFEAA008EE5CB /* click.wav in Resources */,
 				A140A0C3246A07CB009F8B23 /* cas9.usdz in Resources */,
-				A140A0C1246A0499009F8B23 /* Spark.sks in Resources */,
 				A13F6E19246AFD76008EE5CB /* EditorBackground.mp3 in Resources */,
 				A13EA53D2469B68600456ECD /* Assets.xcassets in Resources */,
+				0258988C2471912100EA1BE7 /* cover.png in Resources */,
 				5E086DCA2051DDAE004D8D25 /* LiveView.storyboard in Resources */,
+				0258988924718A3500EA1BE7 /* Spark.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,8 +596,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0258988D2471912100EA1BE7 /* cover.png in Resources */,
 				A13F6E23246AFF82008EE5CB /* slice.wav in Resources */,
-				A13F6E24246B0088008EE5CB /* Spark.sks in Resources */,
+				0258988A24718A3500EA1BE7 /* Spark.sks in Resources */,
 				A13EA53E2469B68800456ECD /* Assets.xcassets in Resources */,
 				A13F6E1A246AFD76008EE5CB /* EditorBackground.mp3 in Resources */,
 				A13F6E20246AFF26008EE5CB /* tada.mp3 in Resources */,

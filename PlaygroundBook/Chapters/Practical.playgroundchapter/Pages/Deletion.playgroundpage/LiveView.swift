@@ -11,4 +11,4 @@ import PlaygroundSupport
 
 // Instantiate a new instance of the live view from BookCore and pass it to PlaygroundSupport.
 //let nav = UINavigationController(rootViewController: insta÷ntiateExploreView())
-PlaygroundPage.current.liveView = instantiateBuilderView()
+PlaygroundPage.current.liveView = instantiateBuilderView(bird: false)

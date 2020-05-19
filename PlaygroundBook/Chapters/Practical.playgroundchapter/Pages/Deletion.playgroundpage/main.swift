@@ -7,7 +7,6 @@
 //
 
 
-
 import PlaygroundSupport
 import Foundation
 
@@ -21,11 +20,11 @@ func attachToDNA() -> String {
 }
 
 func configureTarget(target: String) {
-    remoteView.send(.dictionary(["type": .string("Target"), "Target": .string(target)]))
+    remoteView.send(.dictionary(["type": .string("Target"), "Target": .string(target.uppercased())]))
 }
 
 func configureTemplate(template: String) {
-    remoteView.send(.dictionary(["type": .string("Template"), "Template": .string(template)]))
+    remoteView.send(.dictionary(["type": .string("Template"), "Template": .string(template.uppercased())]))
 }
 
 //#-end-hidden-code
@@ -34,24 +33,28 @@ func configureTemplate(template: String) {
 # Deletion with CRISPR
 ### Come up with something here
 
- Sometimes, we don't want to change a gene, but rather get rid of it entirely. The McIntosh apple on the right has purple spots all over this. However, recent market research shows that consumers do not like them. Let's use CRISPR to get rid of them.
+ Sometimes, we don't want to change a gene, but rather get rid of it entirely.
+ 
+ Over the past few decades, climate change has radically transformed our climate and has become one of humanity's greatest threats. Fortunately, scientists have hypothesized applications of CRISPR that could help combat this issue by genetically engineering organisms to reduce or capture emissions of greenhouse gases.
+ 
+ Methanogens (top-right) are microorganisms that produce methane as a metabolic byproduct. Unfortunately, methane is a potent greenhouse gas that contributes to climate change. Today, it is your task to delete a gene in the methanogen that increases the amount of methane production.
  
  To delete genes, scientists use CRISPR to cut out the targeted gene, but don't supply a template sequence. The DNA then uses Non Homologous repair, which is an error prone process that attempts to reconstruct the strand. In the process, the gene is effectively deleted.
- 
- The three base "codon" that codes for the apple's spots is AAG
+
  
 */
 
-//: First,let's attach the CRISPR protein to our DNA strand
+//: First,let's attach the CRISPR editor to our DNA strand
 attachToDNA()
 
-//: Second, let's configure the target DNA that we want to remove (AAG)
+//: Second, let's configure the target DNA that we want to remove (AGA)
 configureTarget(target: /*#-editable-code Sequence*/""/*#-end-editable-code*/)
 
-//: Now, we're ready to start editing. Run your code, then tap the play button on the top right of the editor screen. The DNA will automatically try homology directed repair.
+//: Now, we're ready to start editing. Run your code, then tap the play button on the top right of the editor screen. The DNA will automatically try non homologous repair.
 
 //#-hidden-code
-var correctResults = ["Sequence*/\"AAG\""]
+
+var correctResults = ["Sequence*/\"AGA\""]
 
 
 // Validation stuff
@@ -82,7 +85,7 @@ public func makeAssessment(of input: String) -> PlaygroundPage.AssessmentStatus 
     let codeInputs = findUserCodeInputs(from: input)
 
     // validate the input; return .fail if needed
-    if codeInputs[0] == correctResults[0] && codeInputs[1] == correctResults[1] {
+    if codeInputs[0].uppercased() == correctResults[0].uppercased() {
         return .pass(message: "Great job! Hit the play button in the top right!")
     }
     return .fail(hints: ["The following hints contain the solution to each editable code area", "AAG"], solution: nil)

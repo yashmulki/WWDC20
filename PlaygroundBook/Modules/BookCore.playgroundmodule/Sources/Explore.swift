@@ -3,24 +3,12 @@ import PlaygroundSupport
 import SceneKit
 import QuickLook
 
-//class HalfSizePresentationController : UIPresentationController {
-//    override var frameOfPresentedViewInContainerView: CGRect {
-//        guard let containerView = containerView else {
-//            return CGRect(x: 0, y: 400, width: 250, height: 250)
-//        }
-//        return CGRect(x: containerView.bounds.width/2, y: 0, width: containerView.bounds.width/2, height: containerView.bounds.height)
-//    }
-//}
 
 class MyViewController : UIViewController, PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer, UIViewControllerTransitioningDelegate  {
     
     func receive(_ message: PlaygroundValue) {
         // Handle messages from the playground -- this is where configuration etc... goes
     }
-//
-//    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-//        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
-//    }
     
     var altController: UIViewController!
 
@@ -199,7 +187,7 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 
         lightNode.light = SCNLight()
         lightNode.light!.type = .directional
-        lightNode.position = SCNVector3(x: 0, y: -60, z: 20)
+        lightNode.position = SCNVector3(x: 0, y: 0, z: 20)
         lightNode.look(at: SCNVector3(0, 0, 0))
         cameraNode.addChildNode(lightNode)
 
@@ -207,7 +195,7 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 
         secondLightNode.light = SCNLight()
         secondLightNode.light!.type = .directional
-        secondLightNode.position = SCNVector3(x: 0, y: 60, z: -20)
+        secondLightNode.position = SCNVector3(x: 0, y: 0, z: -20)
         secondLightNode.look(at: SCNVector3(0, 0, 0))
         scene.rootNode.addChildNode(secondLightNode)
 
@@ -224,17 +212,9 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 
                      fourthLightNode.light = SCNLight()
                      fourthLightNode.light!.type = .directional
-                     fourthLightNode.position = SCNVector3(x: 0, y: -60, z: 0)
+                     fourthLightNode.position = SCNVector3(x: 0, y: 60, z: 0)
                   fourthLightNode.look(at: SCNVector3(0, 0, 0))
                      scene.rootNode.addChildNode(fourthLightNode)
-////
-//        let ambientLightNode = SCNNode()
-//        ambientLightNode.light = SCNLight()
-//        ambientLightNode.light!.intensity = 2000
-//        ambientLightNode.light!.type = .ambient
-//        ambientLightNode.light!.color = UIColor.darkGray
-//        scene.rootNode.addChildNode(ambientLightNode)
-
 
         scnView.scene = scene
         scnView.allowsCameraControl = true
@@ -243,35 +223,7 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 
         view.addSubview(scnView)
 
-//        // Blur and desription label
-//
-//        let descriptionView = UIView(frame: CGRect(x: 25, y: view.frame.height - 220, width: view.frame.width/2 , height: 150))
-//        descriptionView.backgroundColor = .clear
-//        descriptionView.layer.cornerRadius = 15
-//        descriptionView.clipsToBounds = true
-//        view.addSubview(descriptionView)
-//
-//        // Blur Background
-//               let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.extraLight)
-//               let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//                blurEffectView.frame = descriptionView.frame
-//               blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//               blurEffectView.layer.cornerRadius = 15
-//               blurEffectView.layer.masksToBounds = true
-//        descriptionView.addSubview(blurEffectView)
-//
-//        let descriptionLabel = UILabel(frame: descriptionView.frame)
-//        descriptionLabel.text = message
-//        descriptionLabel.numberOfLines = 10
-//        descriptionLabel.textColor = .black
-//        view.addSubview(descriptionLabel)
-//
-//        let closeButton = CustomButton(frame: CGRect(x: view.frame.width - 50, y: 20, width: 35, height: 35))
-//        closeButton.configure(code: "multiply.circle.fill")
-//        closeButton.addTarget(self, action: #selector(self.closeDetailView), for: .touchDown)
-//        view.addSubview(closeButton)
-
-        let arButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: view.frame.height*0.9, width: 35, height: 35))
+        let arButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: view.frame.height*0.93, width: 35, height: 35))
         arButton.configure(code: "cube.box.fill")
         arButton.addTarget(self, action: #selector(self.displayARView), for: .touchDown)
         view.addSubview(arButton)
@@ -280,7 +232,6 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
     }
     
     @objc func closeDetailView() {
-//        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func displayARView() {
@@ -295,7 +246,7 @@ class ItemDetailViewController: UIViewController, QLPreviewControllerDataSource,
 class CustomButton: UIButton {
     
     func configure(code: String) {
-        self.tintColor = .lightGray
+        self.tintColor = .white
         let imageView = UIImageView(image: UIImage(systemName: code))
         imageView.frame = self.bounds
         addSubview(imageView)

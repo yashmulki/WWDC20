@@ -2,14 +2,76 @@ import PlaygroundSupport
 import SpriteKit
 import AVFoundation
 
-// 1. Configure target and template sequence
-// 2. Configure crispr mode - deletion or replacement
-// 3. Press button to start
-
 protocol Editable: SKSpriteNode {
     func setSequence(new: String)
     func editSequence(new: String)
     func setStrand(new: DNAStrand)
+}
+
+class Methanogen: SKSpriteNode, Editable {
+    
+    var sequence: String = ""
+    var strand: DNAStrand?
+    
+    private var tadaPlayer: AVAudioPlayer?
+    
+    func setStrand(new: DNAStrand) {
+        self.strand = new
+    }
+    
+    func editSequence(new: String) {
+        sequence = new
+        print(new)
+        if (new.contains("AGA")) {
+            self.texture = SKTexture(imageNamed: "MethanogenBrown")
+        } else  {
+            tadaPlayer?.play()
+            // Bounce animation
+            let bounceFactor = 0.4
+            let dropHeight = 0.2
+            let dropAction = SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor), duration: 0.3)
+            let sequence = SKAction.sequence( [SKAction.move(by: CGVector(dx: 0, dy: dropHeight*bounceFactor), duration: 0.3),
+                                               SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor), duration: 0.3),
+                                               SKAction.move(by: CGVector(dx: 0, dy: dropHeight*bounceFactor/2), duration: 0.3),
+                                               SKAction.move(by: CGVector(dx: 0, dy: -dropHeight*bounceFactor/2), duration: 0.3)])
+            
+            sequence.timingMode = .easeInEaseOut
+            
+            let particles = SKEmitterNode(fileNamed: "Spark.sks")!
+            particles.position = CGPoint(x: particles.position.x, y: 0)
+            particles.setScale(0.005)
+            particles.numParticlesToEmit = 500
+            
+            self.addChild(particles)
+            
+            let bounceEffect = SKAction.group([dropAction, sequence])
+            self.texture = SKTexture(imageNamed: "MethanogenGreen")
+            self.run(bounceEffect)
+        }
+    }
+    
+    func setSequence(new: String) {
+        
+        let tadaPath = URL(fileURLWithPath: Bundle.main.path(forResource: "tada", ofType: "mp3")!)
+        do {
+            tadaPlayer = try AVAudioPlayer(contentsOf: tadaPath)
+        } catch  {
+            print("error")
+        }
+        
+        sequence = new
+        guard let strand = strand else {
+            return
+        }
+        strand.configureStrand(strand: new)
+        
+        if (new.contains("AGA")) {
+            self.texture = SKTexture(imageNamed: "MethanogenBrown")
+        } else  {
+            self.texture = SKTexture(imageNamed: "MethanogenGreen")
+        }
+        
+    }
 }
 
 class SwiftyBird: SKSpriteNode, Editable {
@@ -40,16 +102,11 @@ class SwiftyBird: SKSpriteNode, Editable {
             
             sequence.timingMode = .easeInEaseOut
             
-            let particles = SKEmitterNode(fileNamed: "Spark")!
-            particles.position = self.position
-            
-            particles.particleSize = CGSize(width: 0.2, height: 0.2)
-            particles.emissionAngle = CGFloat.pi / 2
-            parent?.addChild(particles)
-            let wait = SKAction.wait(forDuration: 5)
-            let removeParticles = SKAction.removeFromParent()
-            let seq = SKAction.sequence([wait, removeParticles])
-            particles.run(seq)
+            let particles = SKEmitterNode(fileNamed: "Spark.sks")!
+            particles.position = CGPoint(x: particles.position.x, y: 0)
+            particles.setScale(0.005)
+            particles.numParticlesToEmit = 500
+            self.addChild(particles)
             
             let bounceEffect = SKAction.group([dropAction, sequence])
             self.texture = SKTexture(imageNamed: "SwiftBird")
@@ -118,6 +175,10 @@ class Cas9Node: SKSpriteNode {
     }
     
     func loadTemplate(template: [Character]) {
+        if template.count != 3 {
+            return
+        }
+        
         if self.template != nil {
             self.template = nil
         }
@@ -153,8 +214,13 @@ class Cas9Node: SKSpriteNode {
     }
     
     func loadTarget(target: [Character]) {
+        if target.count != 3 {
+            return
+        }
+        
+        
         if self.target != nil {
-                   self.template = nil
+            self.template = nil
         }
         
         // Animate Target Coming in
@@ -255,6 +321,22 @@ class GameScene: SKScene {
     // Editing target
     public var organism: Editable?
     
+    private var bird = true
+    
+    override init(size: CGSize) {
+        super.init(size: size)
+    }
+    
+    init(bird: Bool) {
+        super.init()
+        self.bird = bird
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func didMove(to view: SKView) {
         
         // Basic setup
@@ -280,19 +362,24 @@ class GameScene: SKScene {
         self.addChild(dnaNode!)
         dnaNode?.position = CGPoint(x: 1.1, y: 0.3)
         
-        organism = SwiftyBird(texture: SKTexture(imageNamed: "SwiftPurple"))
-        self.addChild(organism!)
-        organism?.setStrand(new: dnaNode!)
-        organism?.position = CGPoint(x: 0.5, y: 0.85)
-        organism?.setSequence(new: "ATTAGCATAACGATGAA")
-        organism?.size = CGSize(width: 0.3, height: 0.3)
-        dnaNode?.setOrganism(new: organism!)
-        
-        
-        //        cas9Node?.attach(to: dnaNode!)
-        //        cas9Node?.loadTarget(target: [Character("A"), Character("T"), Character("G")])
-        //        cas9Node?.loadTemplate(template: [Character("T"), Character("G"), Character("G")])
-        
+        if (bird) {
+            organism = SwiftyBird(texture: SKTexture(imageNamed: "SwiftPurple"))
+            self.addChild(organism!)
+            organism?.setStrand(new: dnaNode!)
+            organism?.position = CGPoint(x: 0.5, y: 0.85)
+            organism?.setSequence(new: "ATTAGCATAACGATGAA")
+            organism?.size = CGSize(width: 0.3, height: 0.3)
+            dnaNode?.setOrganism(new: organism!)
+        } else {
+            organism = Methanogen(texture: SKTexture(imageNamed: "MethanogenBrown"))
+            self.addChild(organism!)
+            organism?.setStrand(new: dnaNode!)
+            organism?.position = CGPoint(x: 0.55, y: 0.85)
+            organism?.setSequence(new: "AGTTTAAAGATCCGCCCT")
+            organism?.size = CGSize(width: 0.4, height: 0.3)
+            dnaNode?.setOrganism(new: organism!)
+            
+        }
     }
     
     func configureDNAStrand(with sequence: String) {
@@ -509,6 +596,8 @@ class EditorViewController: UIViewController, PlaygroundLiveViewMessageHandler {
     private var sceneView: SKView?
     private var scene: GameScene?
     private var deletion = false
+    private let feedback = UIImpactFeedbackGenerator()
+    private var bird = true
     
     
     public func setMode(delete: Bool) {
@@ -521,16 +610,28 @@ class EditorViewController: UIViewController, PlaygroundLiveViewMessageHandler {
         
         //  Configure spritekit view
         sceneView = SKView(frame: CGRect(x:0 , y:0, width: view.frame.width/2, height: view.frame.height))
-        scene = GameScene()
+        scene = GameScene(bird: bird)
         scene!.scaleMode = .aspectFill
         sceneView!.presentScene(scene!)
         view.addSubview(sceneView!)
         
-        
-        let runButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 50, y: 20, width: 35, height: 35))
+        //         scene?.cas9Node?.attach(to: scene!.dnaNode!)
+        //        scene?.cas9Node?.loadTarget(target: [Character("A"),Character("G"),Character("A")])
+        //
+        let runButton = CustomButton(frame: CGRect(x: view.frame.width/2 - 60, y: 20, width: 45, height: 45))
         runButton.configure(code: "play.circle.fill")
         runButton.addTarget(self, action: #selector(self.runCRISPR), for: .touchDown)
         view.addSubview(runButton)
+    }
+    
+    
+    init(bird: Bool) {
+        super.init(nibName: nil, bundle: nil)
+        self.bird = bird
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     @objc func runCRISPR() {
@@ -539,8 +640,9 @@ class EditorViewController: UIViewController, PlaygroundLiveViewMessageHandler {
         guard let scene = self.scene, let crispr = scene.cas9Node else {
             return
         }
+        feedback.impactOccurred()
         
-        if (deletion) {
+        if (!bird) {
             crispr.removeTargetCodon()
         } else {
             crispr.removeTargetCodonAndReplace()

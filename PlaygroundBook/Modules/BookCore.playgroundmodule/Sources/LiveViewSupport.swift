@@ -33,8 +33,8 @@ public func instantiateExploreView() -> PlaygroundLiveViewable {
     return explorerController
 }
 
-public func instantiateBuilderView() -> PlaygroundLiveViewable {
-    let builderController = EditorViewController()
+public func instantiateBuilderView(bird: Bool) -> PlaygroundLiveViewable {
+    let builderController = EditorViewController(bird: bird)
 //    let navController = UINavigationController(rootViewController: explorerController)
     return builderController
 }

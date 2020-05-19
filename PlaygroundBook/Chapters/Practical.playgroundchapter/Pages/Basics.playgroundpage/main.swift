@@ -21,11 +21,11 @@ func attachToDNA() -> String {
 }
 
 func configureTarget(target: String) {
-    remoteView.send(.dictionary(["type": .string("Target"), "Target": .string(target)]))
+    remoteView.send(.dictionary(["type": .string("Target"), "Target": .string(target.uppercased())]))
 }
 
 func configureTemplate(template: String) {
-    remoteView.send(.dictionary(["type": .string("Template"), "Template": .string(template)]))
+    remoteView.send(.dictionary(["type": .string("Template"), "Template": .string(template.uppercased())]))
 }
 
 //#-end-hidden-code
@@ -35,7 +35,7 @@ func configureTemplate(template: String) {
 ### Come up with something here
 Now it's time to start using CRISPR!
  
-The Swift bird has a problem; instead of it's normal orange/red gradient, it has mysteriously turned blue/purple. Fortunately, you just got your  Editor, a revolutionary new CRISPR system that lets you easily modify genes. Using the  Editor is simple – all you have to do is configure a "target" sequence, which is the sequence you are trying to cut out. Then, we can pass in a replacement sequence, and the DNA strand will use a process called Homology Directed Repair, which uses the provided replacement DNA to fill in the broken DNA strand with the new bases.
+The Swift bird has a problem; instead of it's normal orange/red gradient, it has mysteriously turned blue/purple. Fortunately, you just got your  Edit, a revolutionary new CRISPR system that lets you easily modify genes. Using the  Edit is simple – all you have to do is configure a "target" sequence, which is the sequence you are trying to cut out. Then, we can pass in a replacement sequence, and the DNA strand will use a process called Homology Directed Repair, which uses the provided replacement DNA to fill in the broken DNA strand with the new bases.
  
  The three base "codon" that codes for the bird's colour has two different configurations
  - ATG creates a blue/purple color, which is what the bird has right now
@@ -43,13 +43,13 @@ The Swift bird has a problem; instead of it's normal orange/red gradient, it has
  
 */
 
-//: First,let's attach the CRISPR protein to our DNA strand
+//: First,let's attach the CRISPR editor to our DNA strand
 attachToDNA()
 
 //: Second, let's configure the target DNA that we want to remove (ATG)
 configureTarget(target: /*#-editable-code Sequence*/""/*#-end-editable-code*/)
 
-//: Third, let's configure the template DNA (what we want to replace the target with) - should be CTA
+//: Third, let's configure the template DNA that we want to replace the target with (TGG)
 configureTemplate(template: /*#-editable-code Sequence*/""/*#-end-editable-code*/)
 
 //: Now, we're ready to start editing. Run your code, then tap the play button on the top right of the editor screen
@@ -87,7 +87,7 @@ public func makeAssessment(of input: String) -> PlaygroundPage.AssessmentStatus 
     let codeInputs = findUserCodeInputs(from: input)
 
     // validate the input; return .fail if needed
-    if codeInputs[0] == correctResults[0] && codeInputs[1] == correctResults[1] {
+    if codeInputs[0].uppercased() == correctResults[0].uppercased() && codeInputs[1].uppercased() == correctResults[1].uppercased() {
         return .pass(message: "Great job! Hit the play button in the top right!")
     }
     return .fail(hints: ["The following hints contain the solution to each editable code area", "ATG", "TGG"], solution: nil)

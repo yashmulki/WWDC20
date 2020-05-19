@@ -18,4 +18,6 @@
  
  CRISPR/Cas-9 represents a revolutionary new advance in our ability to harness the power of DNA and modify genetic sequences. The Cas-9 protein (shown on the right) can find a certain genetic sequence in a DNA strand and cut it out.
  
+ Feel free to rotate and zoom the view on the right. You can also press the button in the bottom right to get the USDZ model, which you can share and view in Augmented Reality
+ 
  */
